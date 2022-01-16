@@ -3,12 +3,12 @@ package hash;
 import settings.Settings;
 
 public abstract class HashFunction {
-	int radix;
+	int hashRadix;
 	int hashUnitSize;
 	String name;
 
-	public HashFunction(int radix, int hashUnitSize, String name) {
-		this.radix = radix;
+	public HashFunction(int hashRadix, int hashUnitSize, String name) {
+		this.hashRadix = hashRadix;
 		this.hashUnitSize = hashUnitSize;
 		this.name = name;
 	}
@@ -43,14 +43,14 @@ public abstract class HashFunction {
 	}
 
 	public String hashChar(char input) {
-		MyNumber hashedNumber = new MyNumber(input, radix);
+		MyNumber hashedNumber = new MyNumber(input, hashRadix);
 
 		int lengthOffset = hashUnitSize - hashedNumber.toString().length();
 		return (lengthOffset <= 0) ? hashedNumber.toString() : "0".repeat(lengthOffset) + hashedNumber;
 	}
 
 	public char unhashChar(String input) {
-		return (char) new MyNumber(input, radix).changeRadix(10).value;
+		return (char) new MyNumber(input, hashRadix).changeRadix(10).value;
 	}
 
 	@Override
